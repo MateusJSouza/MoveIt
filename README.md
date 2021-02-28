@@ -66,7 +66,7 @@ This project was developed by me the following technologies:
 ✔ CSS Modules for page styling;<br>
 ✔ ContextAPI to share profile data and change the level;<br>
 ✔ useState() to return the value and update that value;<br>
-✔ useEffect() request browser notifications, save the data in the cookies and for the countdown;
+✔ useEffect() request browser notifications, save the data in the cookies and for the countdown;<br>
 
 ## 📝 License
 

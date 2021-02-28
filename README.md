@@ -47,9 +47,10 @@
   <a href="https://move-it-mateusj.vercel.app" target="_blank">
     <img alt="Demo on Vercel" src="https://res.cloudinary.com/dx3vxwusq/image/upload/v1613186216/vercel-deploy_x5v2jc.png">
   </a>
-</p>
-
-</p>
+  
+<h1 align="center">
+  Deploy at Vercel ☝🏽
+</h1>
 
 ## 🚀 Technologies 
 This project was developed by me the following technologies:

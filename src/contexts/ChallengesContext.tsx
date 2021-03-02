@@ -9,6 +9,7 @@ interface Challenge {
     amount: number;
 }
 
+// Interface de contexto de dados do perfil
 interface ChallengesContextData {
     level: number;
     currentExperience: number;
@@ -22,6 +23,7 @@ interface ChallengesContextData {
     closeLevelUpModal: () => void;
 }
 
+// Interface de dados dos desafios
 interface ChallengesProviderProps {
     children: ReactNode;
     level: number;
@@ -33,8 +35,10 @@ export const ChallengesContext = createContext({} as ChallengesContextData);
 
 export function ChallengesProvider({
     children,
-    ...rest 
+    ...rest
     }: ChallengesProviderProps) {
+
+    //Constante de nível e setar nível
     const [level, setLevel] = useState(rest.level ?? 1);
     const [currentExperience, setCurrentExperience] = useState(rest.currentExperience ?? 0);
     const [challengesCompleted,setChallengesCompleted] = useState(rest.challengesCompleted ?? 0);
@@ -44,25 +48,30 @@ export function ChallengesProvider({
 
     const experienceToNextLevel = Math.pow((level + 1) * 4, 2 )
 
+    // Requisição de notificação no browser
     useEffect(() => {
         Notification.requestPermission();
     }, [])
 
+    // Setando level, experiência atual e desafios completos nos cookies para salvar esses dados
     useEffect(() => {
         Cookies.set('level', String(level));
         Cookies.set('currentExperience', String(currentExperience));
         Cookies.set('challengesCompleted', String(challengesCompleted));
     }, [level, currentExperience,challengesCompleted])
   
+    // Função de aumentar level
     function levelUp() {
         setLevel(level + 1);
         setIsLevelUpModalOpen(true);
     }
 
+    // Fechar modal de level up
     function closeLevelUpModal() {
         setIsLevelUpModalOpen(false);
     }
 
+    // Começar um novo desafio
     function startNewChallenge() {
         const randomChallengeIndex = Math.floor(Math.random() * challenges.length);
         const challenge = challenges[randomChallengeIndex];
@@ -78,10 +87,12 @@ export function ChallengesProvider({
         }
     }
 
+    // Resetar desafios
     function resetChallenge() {
         setActiveChallenge(null);
     }
 
+    // Desafios completados
     function completeChallenge() {
         if (!activeChallenge) {
             return;
@@ -102,6 +113,7 @@ export function ChallengesProvider({
         setChallengesCompleted(challengesCompleted + 1);
     }
 
+    // Retornando funções
     return (
         <ChallengesContext.Provider value={{
                 level,
@@ -116,8 +128,10 @@ export function ChallengesProvider({
                 closeLevelUpModal
             }}
         >
+            {/* Filho */}
             {children}
 
+            {/* Se subir de level, mostrar modal */}
             { isLevelUpModalOpen && <LevelUpModal /> }
         </ChallengesContext.Provider>
     );
